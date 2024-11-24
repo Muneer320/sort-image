@@ -1,0 +1,15 @@
+# .gitignore
+
+.vscode/
+
+.venv/
+venv/
+
+*.mp4
+*.mkv
+
+*.jpg
+*.jpeg
+
+__pycache__/
+__pycache__/*
