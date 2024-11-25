@@ -19,7 +19,7 @@ def sv_parse_image(image: str) -> ImageFileType | None:
         return None
 
 
-def sv_create_merge_dir():
+def sv_create_merge_dir() -> None:
     if not path.exists("sv"):
         mkdir("sv")
     else:
@@ -46,6 +46,7 @@ def sv_parse_args() -> Namespace:
 
     parser.add_argument("image")
     parser.add_argument("-s", "--split")
+    parser.add_argument("-a", "--algorithm")
 
     args = parser.parse_args()
 
@@ -60,7 +61,7 @@ def sv_generate_array(size: int) -> list[int]:
 
 
 def sv_split_image(image: ImageFileType, split: int) -> list[ImageType]:
-    split_images = []
+    split_images: list[ImageType] = []
 
     w, h = image.size
     w, h = w // split, h // split
@@ -96,7 +97,7 @@ def sv_merge_image(
     array: list[int],
     count: int,
     split: int,
-):
+) -> None:
     w, h = image.size
     w, h = w // split, h // split
 
