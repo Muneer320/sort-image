@@ -8,7 +8,8 @@ import ffmpeg
 from PIL import Image
 from PIL.Image import Image as ImageType
 from PIL.ImageFile import ImageFile as ImageFileType
-from rich import print as r_print
+
+from term import r_print
 
 
 def sv_parse_image(image: str) -> ImageFileType | None:
