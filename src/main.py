@@ -1,14 +1,11 @@
 from shutil import rmtree
 
-from rich import print as r_print
-from rich.console import Console
-
 import util
 from sort import SVSort
+from term import r_print, status
 
 
 def main():
-    console = Console()
     args = util.sv_parse_args()
 
     directory = "sv"
@@ -18,7 +15,7 @@ def main():
     image = util.sv_parse_image(args.image)
 
     if image is None:
-        console.print("[bold red]Error[/bold red]: Invalid image file.")
+        r_print("[bold red]Error[/bold red]: Invalid image file.")
         exit(1)
 
     # Get split size
@@ -30,12 +27,10 @@ def main():
     util.sv_create_merge_dir()
 
     # Process
-    status = console.status
-
     with status("Splitting image into pieces...", spinner="dots9"):
         images = util.sv_split_image(image, split)
 
-    with status("Sorting with bubble sort...", spinner="dots9"):
+    with status(f"Generating {splits} images...", spinner="dots9"):
         array = util.sv_generate_array(splits)
         sort = SVSort(array)
 
@@ -53,5 +48,9 @@ if __name__ == "__main__":
         main()
     except KeyboardInterrupt:
         rmtree("sv/", ignore_errors=True)
-        r_print("[bold red]Error[/bold red]: Exception occured.")
+        r_print("[bold red]Error[/bold red]: Interrupted.")
+        exit(1)
+    except Exception as exception:
+        rmtree("sv/", ignore_errors=True)
+        r_print("[bold red]Error[/bold red]: Exception occurred.")
         exit(1)
