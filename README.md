@@ -37,6 +37,12 @@ python3 src/main.py sunset.jpg -s 100
 
 Split size can be provided as command line argument.
 
+```sh
+python3 src/main.py sunset.jpg -s 100 -a 0
+```
+
+Change sorting algorithm with algorithm index. Here `0` is for `Bubble Sort`.
+
 ## 📶 Sorting Algorithms
 
 > Only Bubble sort is available in this current implementation.
