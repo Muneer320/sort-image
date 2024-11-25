@@ -5,7 +5,7 @@ from sort import SVSort
 from term import r_print, status
 
 
-def main():
+def main() -> None:
     args = util.sv_parse_args()
 
     directory = "sv"
@@ -21,6 +21,9 @@ def main():
     # Get split size
     split = int(args.split) if args.split else 50
 
+    # Algorithm
+    algorithm = 0
+
     w, h = image.size
     splits = (w // split) * (h // split)
 
@@ -32,9 +35,9 @@ def main():
 
     with status(f"Generating {splits} images...", spinner="dots9"):
         array = util.sv_generate_array(splits)
-        sort = SVSort(array)
+        sort = SVSort(array).sort(algorithm)
 
-        for index, iteration in enumerate(sort.bubble_sort()):
+        for index, iteration in enumerate(sort()):
             util.sv_merge_image(image, images, iteration, index, split)
 
     with status("Creating video with ffmpeg...", spinner="dots9"):
@@ -53,4 +56,5 @@ if __name__ == "__main__":
     except Exception as exception:
         rmtree("sv/", ignore_errors=True)
         r_print("[bold red]Error[/bold red]: Exception occurred.")
+        r_print(exception)
         exit(1)
