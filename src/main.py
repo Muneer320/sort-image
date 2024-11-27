@@ -1,5 +1,7 @@
 from shutil import rmtree
 
+from rich.progress import Progress
+
 import util
 from sort import SVSort
 from term import r_print, status
@@ -29,21 +31,26 @@ def main() -> None:
 
     util.sv_create_merge_dir()
 
-    # Process
+    # Process Image
     with status("Splitting image into pieces...", spinner="dots9"):
         images = util.sv_split_image(image, split)
 
-    with status(f"Generating {splits} images...", spinner="dots9"):
+    with Progress() as progress:
+        task = progress.add_task(f"Generating {splits} images...", total=splits)
+
         array = util.sv_generate_array(splits)
         sort = SVSort(array).sort(algorithm)
 
         for index, iteration in enumerate(sort()):
             util.sv_merge_image(image, images, iteration, index, split)
+            progress.update(task, advance=1)
 
     with status("Creating video with ffmpeg...", spinner="dots9"):
         util.sv_create_video(directory, video)
 
     rmtree(directory, ignore_errors=True)
+
+    r_print("🚀 Video generated.")
 
 
 if __name__ == "__main__":
