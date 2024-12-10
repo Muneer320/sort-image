@@ -11,6 +11,12 @@ combine image sources into one single video.
 
 ## ⚙️ Usage
 
+Install `ffmpeg`.
+
+```sh
+sudo apt install ffmpeg
+```
+
 ```sh
 git clone <https://github.com/surajkareppagol/sort-image>
 cd sort-image
