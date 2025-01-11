@@ -7,6 +7,7 @@ class SVSort:
         self.size = len(array)
 
         self.algorithms: list[object] = []
+
         self.algorithms.append(self.bubble_sort)
         self.algorithms.append(self.selection_sort)
         self.algorithms.append(self.insertion_sort)
@@ -14,8 +15,18 @@ class SVSort:
         self.algorithms.append(self.quick_sort)
         self.algorithms.append(self.heap_sort)
 
+        self.total_algorithms = len(self.algorithms)
+
+    # *************************************************#
+    #              SVSORT -- SWAP                      #
+    # *************************************************#
+
     def swap(self, i: int, j: int) -> None:
         self.array[i], self.array[j] = self.array[j], self.array[i]
+
+    # *************************************************#
+    #              SVSORT -- BUBBLE_SORT               #
+    # *************************************************#
 
     def bubble_sort(self) -> Generator[list[int], None, None]:
         for _ in range(self.size):
@@ -24,6 +35,10 @@ class SVSort:
                     self.swap(j, j + 1)
 
             yield self.array
+
+    # *************************************************#
+    #              SVSORT -- SELECTION_SORT            #
+    # *************************************************#
 
     def selection_sort(self) -> Generator[list[int], None, None]:
         for i in range(self.size):
@@ -34,6 +49,10 @@ class SVSort:
             self.swap(i, min_idx)
             yield self.array
 
+    # *************************************************#
+    #              SVSORT -- INSERTION_SORT            #
+    # *************************************************#
+
     def insertion_sort(self) -> Generator[list[int], None, None]:
         for i in range(1, self.size):
             key = self.array[i]
@@ -43,6 +62,10 @@ class SVSort:
                 j -= 1
             self.array[j + 1] = key
             yield self.array
+
+    # *************************************************#
+    #              SVSORT -- MERGE_SORT                #
+    # *************************************************#
 
     def merge_sort(self) -> Generator[list[int], None, None]:
         def merge(start, mid, end):
@@ -66,6 +89,10 @@ class SVSort:
 
         yield from merge_sort_recursive(0, self.size)
 
+    # *************************************************#
+    #              SVSORT -- QUICK_SORT                #
+    # *************************************************#
+
     def quick_sort(self) -> Generator[list[int], None, None]:
         def partition(low, high):
             pivot = self.array[high]
@@ -87,6 +114,10 @@ class SVSort:
 
         yield from quick_sort_recursive(0, self.size - 1)
 
+    # *************************************************#
+    #              SVSORT -- HEAP_SORT                 #
+    # *************************************************#
+
     def heap_sort(self) -> Generator[list[int], None, None]:
         def heapify(size, root):
             largest = root
@@ -107,6 +138,10 @@ class SVSort:
             self.swap(0, i)
             yield self.array
             yield from heapify(i, 0)
+
+    # *************************************************#
+    #              SVSORT -- SORT                      #
+    # *************************************************#
 
     def sort(self, index: int) -> object:
         algorithm = self.algorithms[index]
