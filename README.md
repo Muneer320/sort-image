@@ -1,5 +1,7 @@
 # 📶 Sort Image
 
+![Sort Image (Bubble Sort) - Preview](out/sort-image.gif)
+
 Inspiration for this project is the following post from [Reddit](https://www.reddit.com/r/ProgrammerHumor/comments/cyrlvp/learn_sorting_algorithm_with_kronk/).
 
 ## 👷 Architecture
